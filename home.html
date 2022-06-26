@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <link rel="stylesheet" href="/components/navbar.css">
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 18px;
+        }
+
+        form {
+            border-radius: 15px;
+            width: 28%;
+            margin: auto;
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+            margin-top: 100px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            padding-bottom: 20px;
+        }
+
+        input {
+            /* margin: 10px 20px; */
+            height: 35px;
+            width: 80%;
+            margin: auto;
+        }
+
+        #sub {
+            height: 35px;
+            width: 30%;
+            margin: auto;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(172, 172, 172);
+            cursor: pointer;
+        }
+
+        #sub:hover {
+            background-color: rgb(76, 133, 219);
+            color: white;
+        }
+
+        select {
+            height: 38px;
+            width: 81.5%;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 18px;
+        }
+
+
+
+        h2 {
+            font-size: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--  name, course, unit, image and batch. -->
+    <div id="nav">
+        <!-- <div class="divs" id="web15">web15 - 0</div>
+        <div class="divs" id="web16">web16 - 0</div>
+        <div class="divs" id="web17">web17 - 0</div>
+        <div class="divs" id="web18">web18 - 0</div>
+        <div class="divs" id="web19">web19 - 0</div> -->
+    </div>
+    <!-- <h2>0</h2> -->
+    <!-- onsubmit=func(event) -->
+    <form id="forms">
+        <h1> PLEASE ENTER STUDENT</h1>
+        <input type="text" id="name" placeholder="Enter Name Of Student">
+        <select name="" id="course">
+            <option value="none">Please Select course</option>
+            <option value="FSD">FSD</option>
+            <option value="BED">BED</option>
+            <option value="FED">FED</option>
+
+        </select>
+        <select name="" id="unit">
+            <option value="none">Please Select Unit</option>
+
+            <option value="unit1">unit1</option>
+            <option value="unit2">unit2</option>
+            <option value="unit3">unit3</option>
+            <option value="unit4">unit4</option>
+            <option value="unit5">unit5</option>
+        </select>
+        <input type="text" id="image" placeholder="Enter image Url">
+        <select name="" id="batch">
+            <option value="none">Please Select Batch</option>
+
+            <option value="web15">web15</option>
+            <option value="web16">web16</option>
+            <option value="web17">web17</option>
+            <option value="web18">web18</option>
+            <option value="web19">web19</option>
+        </select>
+        <input type="submit" id="sub">
+    </form>
+
+</body>
+<!-- https://banner2.cleanpng.com/20180325/oiq/kisspng-businessperson-computer-icons-avatar-passport-5ab7da5ba4ea53.1027634415219984276755.jpg -->
+
+</html>
+<script type="module">
+
+    import navbar from "./components/navbar.js"
+    document.querySelector("#nav").innerHTML = navbar()
+
+    var arr = JSON.parse(localStorage.getItem("database")) || []
+
+
+    var C1 = localStorage.getItem("count1") || 0
+    var C2 = localStorage.getItem("count2") || 0
+    var C3 = localStorage.getItem("count3") || 0
+    var C4 = localStorage.getItem("count4") || 0
+    var C5 = localStorage.getItem("count5") || 0
+
+
+    var f = document.querySelector("#forms")
+    f.addEventListener("submit", func)
+    function func() {
+
+        event.preventDefault();
+        // localStorage.clear()
+        if (f.name.value == "" || f.course.value == "none" || f.unit.value == "none" || f.image.value == "" || f.batch.value == "none") {
+            alert("Please fil All Details")
+        }
+        else {
+            console.log("hii")
+            var x = new constr(f.name.value, f.course.value, f.unit.value, f.image.value, f.batch.value)
+            arr.push(x)
+
+
+
+            var y1 = document.querySelector("#web15")
+            var y2 = document.querySelector("#web16")
+            var y3 = document.querySelector("#web17")
+            var y4 = document.querySelector("#web18")
+            var y5 = document.querySelector("#web19")
+            if (f.batch.value == "web15") {
+                ++C1
+                y1.innerHTML = `web15 - ${C1}`
+                localStorage.setItem("count1", C1)
+            }
+            else if (f.batch.value == "web16") {
+                ++C2
+                y2.innerHTML = `web16 - ${C2}`
+                localStorage.setItem("count2", C2)
+
+            }
+            else if (f.batch.value == "web17") {
+                ++C3
+                y3.innerHTML = `web17 - ${C3}`
+                localStorage.setItem("count3", C3)
+
+            }
+            else if (f.batch.value == "web18") {
+                ++C4
+                y4.innerHTML = `web18 - ${C4}`
+                localStorage.setItem("count4", C4)
+
+            }
+            else if (f.batch.value == "web19") {
+                ++C5
+                y5.innerHTML = `web19 - ${C5}`
+                localStorage.setItem("count5", C5)
+
+            }
+
+            localStorage.setItem("database", JSON.stringify(arr))
+
+            f.name.value = ""
+            f.course.value = "none"
+            f.unit.value = "none"
+            f.image.value = ""
+            f.batch.value = "none"
+            // }
+            // var h2 = document.querySelector("h2")
+            // h2.innerText = ++d
+            // localStorage.setItem("dd", d)
+
+        }
+    }
+
+    function constr(name, course, unit, image, batch) {
+        this.name = name
+        this.course = course
+        this.unit = unit
+        this.image = image
+        this.batch = batch
+
+
+    }
+
+</script>

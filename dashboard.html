@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/components/navbar.css">
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            color: rgb(97, 95, 95);
+
+        }
+
+        #stdgrid {
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(auto);
+            gap: 20px;
+            width: 70%;
+            height: auto;
+            margin-top: 100px;
+            /* border: 1px solid black; */
+        }
+
+        img {
+            width: 100%;
+            height: 200px;
+        }
+
+        #stdgrid>div {
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+
+        h1 {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="nav">
+
+    </div>
+    <div id="stdgrid"></div>
+</body>
+
+</html>
+<script type="module">
+    //       this.name = name
+    // this.course = course
+    //         this.unit = unit
+    //         this.image = image
+    //         this.batch = batch
+    import navbar from "./components/navbar.js"
+    document.querySelector("#nav").innerHTML = navbar()
+    let arr = JSON.parse(localStorage.getItem("database")) || []
+    let appendfunction = () => {
+        let div1 = document.querySelector("#stdgrid")
+        div1.innerHTML = null
+        arr.forEach(function (elem) {
+            let div2 = document.createElement("div")
+            let image = document.createElement("img")
+            image.src = elem.image
+            let name = document.createElement("h1")
+            name.innerText = `Name ${elem.name}`
+            let course = document.createElement("h1")
+            course.innerText = `course: ${elem.course}`
+            let unit = document.createElement("h1")
+            unit.innerText = `Unit: ${elem.unit}`
+
+            let batch = document.createElement("h1")
+            batch.innerText = `Batch: ${elem.batch}`
+
+
+
+            div2.append(image, name, course, unit, batch)
+            div1.append(div2)
+        });
+    }
+    appendfunction()
+
+
+
+
+</script>
